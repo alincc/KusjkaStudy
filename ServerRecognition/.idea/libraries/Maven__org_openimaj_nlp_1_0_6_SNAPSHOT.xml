@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.openimaj:nlp:1.0.6-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/openimaj/nlp/1.0.6-SNAPSHOT/nlp-1.0.6-20130223.174249-174.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/openimaj/nlp/1.0.6-SNAPSHOT/nlp-1.0.6-20130223.174249-174-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/openimaj/nlp/1.0.6-SNAPSHOT/nlp-1.0.6-20130223.174249-174-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

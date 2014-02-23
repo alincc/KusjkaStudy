@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: xuggle-utils:xuggle-utils:1.21">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/xuggle-utils/xuggle-utils/1.21/xuggle-utils-1.21.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/xuggle-utils/xuggle-utils/1.21/xuggle-utils-1.21-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/xuggle-utils/xuggle-utils/1.21/xuggle-utils-1.21-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

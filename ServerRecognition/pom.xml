@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>ServerRecognition</groupId>
+    <artifactId>ServerRecognition</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+
+    <repositories>
+        <repository>
+            <id>OpenIMAJ maven releases repository</id>
+            <url>http://maven.openimaj.org</url>
+        </repository>
+        <repository>
+            <id>OpenIMAJ maven snapshots repository</id>
+            <url>http://snapshots.openimaj.org</url>
+        </repository>
+        <repository>
+            <id>Octopussy maven repository</id>
+            <url>http://octopussy.ecs.soton.ac.uk/m2/thirdparty/</url>
+        </repository>
+        <repository>
+            <id>octopussy-snapshots</id>
+            <name>Octopussy Maven Snaphots Repository</name>
+            <url>http://octopussy.ecs.soton.ac.uk/m2/snapshots</url>
+        </repository>
+        <repository>
+            <id>Octopussy maven releases repository</id>
+            <url>http://octopussy.ecs.soton.ac.uk/m2/releases/</url>
+        </repository>
+        <repository>
+            <id>OpenIMAJ maven repository</id>
+            <url>http://maven.openimaj.org/</url>
+        </repository>
+        <repository>
+            <id>OpenIMAJ snapshots maven repository</id>
+            <url>http://snapshots.openimaj.org</url>
+        </repository>
+        <repository>
+            <id>SarXos Repository</id>
+            <url>http://www.sarxos.pl/repo/maven2</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.github.sarxos</groupId>
+            <artifactId>webcam-capture</artifactId>
+            <version>0.3.10-RC5</version>
+        </dependency>
+        <dependency>
+            <groupId>jmatio</groupId>
+            <artifactId>jmatio</artifactId>
+            <version>0.2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openimaj</groupId>
+            <artifactId>image-local-features</artifactId>
+            <version>1.0.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openimaj.hadoop.tools</groupId>
+            <artifactId>HadoopTwitterTokenTool</artifactId>
+            <version>1.0.6-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openimaj</groupId>
+            <artifactId>faces</artifactId>
+            <version>1.0.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openimaj</groupId>
+            <artifactId>image-feature-extraction</artifactId>
+            <version>1.0.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openimaj</groupId>
+            <artifactId>core-video-capture</artifactId>
+            <version>1.0.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openimaj</groupId>
+            <artifactId>xuggle-video</artifactId>
+            <version>1.0.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openimaj</groupId>
+            <artifactId>klt-tracker</artifactId>
+            <version>1.0.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openimaj</groupId>
+            <artifactId>audio-processing</artifactId>
+            <version>1.0.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openimaj</groupId>
+            <artifactId>video-processing</artifactId>
+            <version>1.0.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openimaj.content</groupId>
+            <artifactId>animation</artifactId>
+            <version>1.0.6-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openimaj</groupId>
+            <artifactId>demos</artifactId>
+            <version>1.0.5</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.8.2</version>
+        </dependency>
+        <dependency>
+            <artifactId>kinect</artifactId>
+            <groupId>org.openimaj.hardware</groupId>
+            <version>1.0.6-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <artifactId>twitter</artifactId>
+            <groupId>org.openimaj</groupId>
+            <version>1.0.6-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.encog</groupId>
+            <artifactId>encog-core</artifactId>
+            <version>3.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>uk.ac.ucl.ee.mflanaga</groupId>
+            <artifactId>scientific-library</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>edu.cmu.sphinx</groupId>
+            <artifactId>sphinx4</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>edu.cmu.sphinx</groupId>
+            <artifactId>hub4-speech-model</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>edu.cmu.sphinx</groupId>
+            <artifactId>hub4-acoustic-model</artifactId>
+            <version>1.0</version>
+        </dependency>
+    </dependencies>
+
+</project>

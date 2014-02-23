@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.openimaj.hadoop.tools:core-hadoop-tool:1.0.6-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/openimaj/hadoop/tools/core-hadoop-tool/1.0.6-SNAPSHOT/core-hadoop-tool-1.0.6-20130223.150304-172.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/openimaj/hadoop/tools/core-hadoop-tool/1.0.6-SNAPSHOT/core-hadoop-tool-1.0.6-20130223.150304-172-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/openimaj/hadoop/tools/core-hadoop-tool/1.0.6-SNAPSHOT/core-hadoop-tool-1.0.6-20130223.150304-172-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

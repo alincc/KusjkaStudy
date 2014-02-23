@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: mtj:mtj-combined:mtj-mapsnapper">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/mtj/mtj-combined/mtj-mapsnapper/mtj-combined-mtj-mapsnapper.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/mtj/mtj-combined/mtj-mapsnapper/mtj-combined-mtj-mapsnapper-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/mtj/mtj-combined/mtj-mapsnapper/mtj-combined-mtj-mapsnapper-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

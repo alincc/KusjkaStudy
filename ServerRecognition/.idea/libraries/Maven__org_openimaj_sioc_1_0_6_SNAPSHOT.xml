@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.openimaj:sioc:1.0.6-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/openimaj/sioc/1.0.6-SNAPSHOT/sioc-1.0.6-20130223.144824-46.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/openimaj/sioc/1.0.6-SNAPSHOT/sioc-1.0.6-20130223.144824-46-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/openimaj/sioc/1.0.6-SNAPSHOT/sioc-1.0.6-20130223.144824-46-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

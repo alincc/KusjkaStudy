@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.openimaj:ImprovedArgs4J:1.0.6-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/openimaj/ImprovedArgs4J/1.0.6-SNAPSHOT/ImprovedArgs4J-1.0.6-20130223.173145-177.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/openimaj/ImprovedArgs4J/1.0.6-SNAPSHOT/ImprovedArgs4J-1.0.6-20130223.173145-177-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/openimaj/ImprovedArgs4J/1.0.6-SNAPSHOT/ImprovedArgs4J-1.0.6-20130223.173145-177-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

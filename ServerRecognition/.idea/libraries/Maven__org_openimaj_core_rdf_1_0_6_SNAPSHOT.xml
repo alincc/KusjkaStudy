@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.openimaj:core-rdf:1.0.6-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/openimaj/core-rdf/1.0.6-SNAPSHOT/core-rdf-1.0.6-20130223.173441-95.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/openimaj/core-rdf/1.0.6-SNAPSHOT/core-rdf-1.0.6-20130223.173441-95-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/openimaj/core-rdf/1.0.6-SNAPSHOT/core-rdf-1.0.6-20130223.173441-95-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
