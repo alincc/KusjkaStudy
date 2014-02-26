@@ -114,46 +114,55 @@ public class AudioRecognitionEngine {
 
     }
 
-    public static void ident(String pstrFilename)
+    public static String[] ident(String pstrFilename)
             throws MARFException {
         /*
          * If no expected speaker present on the command line,
 		 * attempt to fetch it from the database by filename.
 		 */
+        String expected = null;
         String pstrConfig = MARF.getConfig();
         int piExpectedID = -1;
 
-        if (piExpectedID < 0) {
+        if (piExpectedID > 0) {
             String[] files = pstrFilename.split("/");
             String name = files[files.length - 1];
+            System.out.println("Converted name : " + name);
             piExpectedID = Ints.checkedCast(((User) table.findUserByAudioFileName(name)).getId());
+            expected = ((User) table.select((long) piExpectedID)).getUserName();
         }
 
         MARF.setSampleFile(pstrFilename);
         MARF.recognize();
 
+        String [] results = new String[2];
         // First guess
         int iIdentifiedID = MARF.queryResultID();
+        results[0] = ((User)table.select((long) iIdentifiedID)).getUserName();
         // Second best
         int iSecondClosestID = MARF.getResultSet().getSecondClosestID();
+        results[1] = ((User) table.select((long) iSecondClosestID)).getUserName();
+
         System.out.println("----------------------------8<------------------------------");
         System.out.println("                 File: " + pstrFilename);
         System.out.println("               Config: " + pstrConfig);
         System.out.println("         Speaker's ID: " + iIdentifiedID);
-        System.out.println("   Speaker identified: " + ((User)table.select((long) iIdentifiedID)).getUserName());
+        System.out.println("   Speaker identified: " + results[0]);
 
 		/*
          * Only collect stats if we have expected speaker
 		 */
         if (piExpectedID > 0) {
             System.out.println("Expected Speaker's ID: " + piExpectedID);
-            System.out.println("     Expected Speaker: " + ((User) table.select((long) piExpectedID)).getUserName());
+            System.out.println("     Expected Speaker: " + expected);
         }
 
         System.out.println("       Second Best ID: " + iSecondClosestID);
-        System.out.println("     Second Best Name: " + ((User) table.select((long) iSecondClosestID)).getUserName());
+        System.out.println("     Second Best Name: " + results[1]);
         System.out.println("            Date/time: " + new Date());
         System.out.println("----------------------------8<------------------------------");
+
+        return results;
     }
 
     public static void folderIdent(String filePath) {

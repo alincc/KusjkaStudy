@@ -34,8 +34,9 @@ public class VideoRecognitionEngine {
         String result = null;
         List<KEDetectedFace> faces = engine.detectFaces(ImageUtilities.createFImage(bImageFromConvert));
         if (faces.size() == 1) {
+            faces.get(0);
             result = recogniser.queryBestMatch(faces.get(0)).toString();
-            System.out.println("Looks like: " + recogniser.queryBestMatch(faces.get(0)));
+            System.out.println("Looks like: " + result);
         } else {
             System.out.println("Wrong number of faces found");
         }
@@ -61,7 +62,8 @@ public class VideoRecognitionEngine {
                 originalImage = convertToGray(originalImage);
                 FImage image = ImageUtilities.createFImage(originalImage);
                 List<KEDetectedFace> faces = engine.detectFaces(image);
-                recogniser.addInstance((((User) table.findUserByImageFileName(fullPath)).getId()).toString(), faces.get(0));
+                if(table.findUserByAudioFileName(fileName)!= null)
+                    recogniser.addInstance((((User) table.findUserByImageFileName(fullPath)).getId()).toString(), faces.get(0));
             } else if (listOfFiles[i].isDirectory()) {
                 System.out.println("Directory " + listOfFiles[i].getName());
             }
@@ -74,5 +76,4 @@ public class VideoRecognitionEngine {
         op.filter(image, image);
         return image;
     }
-
 }
