@@ -10,7 +10,7 @@ public class AudioUtils {
         int sampleSizeInBits = 16;
         int channels = 1;
         boolean signed = true;
-        boolean bigEnding = true;
+        boolean bigEnding = false;
         AudioFormat format = new AudioFormat(sampleRate, sampleSizeInBits,
                 channels, signed, bigEnding);
         return format;
