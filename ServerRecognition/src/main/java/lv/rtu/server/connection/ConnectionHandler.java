@@ -1,6 +1,7 @@
 package lv.rtu.server.connection;
 
 import lv.rtu.db.DataBaseFiller;
+import lv.rtu.maping.Mapping;
 import lv.rtu.recognition.RecognitionEngine;
 import lv.rtu.server.connection_thread.ConnectionThread;
 
@@ -24,6 +25,7 @@ public class ConnectionHandler {
 
         DataBaseFiller.fillDB();
         RecognitionEngine.trainRecognizers();
+        Mapping.mppingFromFile();
 
         // The default port number.
 		int portNumber = 2222;

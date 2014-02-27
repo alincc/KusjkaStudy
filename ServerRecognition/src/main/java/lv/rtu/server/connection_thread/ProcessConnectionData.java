@@ -4,10 +4,10 @@ import lv.rtu.db.DataBaseFiller;
 import lv.rtu.db.UserTableImplementationDAO;
 import lv.rtu.domain.AudioUtils;
 import lv.rtu.domain.ObjectFile;
+import lv.rtu.maping.Mapping;
 import lv.rtu.recognition.RecognitionEngine;
 import lv.rtu.recognition.audio.AudioRecognitionEngine;
 import lv.rtu.recognition.video.VideoRecognitionEngine;
-import lv.rtu.server.network_util.AvailablePortFinder;
 
 import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
@@ -19,34 +19,34 @@ import java.util.Date;
 
 public class ProcessConnectionData {
 
-    private static UserTableImplementationDAO table = new UserTableImplementationDAO();
+    private UserTableImplementationDAO table = new UserTableImplementationDAO();
 
-    public static void objectAnalysis(ObjectFile objectFile) {
+    public void objectAnalysis(ObjectFile objectFile) {
 
         switch (objectFile.getMessage()) {
             case "Transfer File":
                 try {
 
-                    if(objectFile.getFileName().contains(".")){
+                    if (objectFile.getFileName().contains(".")) {
 
-                        if(objectFile.getFileName().contains("jpg")){
+                        if (objectFile.getFileName().contains("jpg")) {
                             ByteArrayInputStream byteArrayStream = new ByteArrayInputStream(objectFile.getFileBytes());
                             BufferedImage image = ImageIO.read(byteArrayStream);
-                            String fileName = "./resources"+objectFile.getFileName();
+                            String fileName = "./resources" + objectFile.getFileName();
                             ImageIO.write(image, "jpg", new File(fileName));
                             byteArrayStream.close();
                         }
 
-                        if(objectFile.getFileName().contains("wav")){
+                        if (objectFile.getFileName().contains("wav")) {
                             AudioInputStream stream = AudioUtils.soundBytesToAudio(objectFile.getFileBytes());
-                            String fileName = "./resources"+objectFile.getFileName();
+                            String fileName = "./resources" + objectFile.getFileName();
                             AudioUtils.saveAudioStreamToFile(stream, fileName);
                             stream.close();
                         }
 
                     } else {
 
-                        if(objectFile.getFileName().contains("image")){
+                        if (objectFile.getFileName().contains("image")) {
                             ByteArrayInputStream byteArrayStream = new ByteArrayInputStream(objectFile.getFileBytes());
                             BufferedImage image = ImageIO.read(byteArrayStream);
                             VideoRecognitionEngine.recognise(image);
@@ -54,12 +54,12 @@ public class ProcessConnectionData {
                             byteArrayStream.close();
                         }
 
-                        if(objectFile.getFileName().contains("audio")){
-                            Date date= new java.util.Date();
+                        if (objectFile.getFileName().contains("audio")) {
+                            Date date = new java.util.Date();
                             String time = new Timestamp(date.getTime()).toString();
-                            time = time.replaceAll("[^A-Za-z0-9 ]+","_");
+                            time = time.replaceAll("[^A-Za-z0-9 ]+", "_");
                             AudioInputStream stream = AudioUtils.soundBytesToAudio(objectFile.getFileBytes());
-                            String fileName = "./resources/tmp/"+time+".wav";
+                            String fileName = "./resources/tmp/" + time + ".wav";
                             AudioUtils.saveAudioStreamToFile(stream, fileName);
                             stream.close();
                             AudioRecognitionEngine.ident(fileName);
@@ -71,19 +71,6 @@ public class ProcessConnectionData {
                     e.printStackTrace();
                 }
 
-                break;
-
-            case "Video Stream":
-                int videoPortNumber = AvailablePortFinder.getNextAvailable();
-                //VideoEngine
-                break;
-
-            case "Audio Stream":
-                int audioPortNumber = AvailablePortFinder.getNextAvailable();
-                // AudioEngine
-                break;
-
-            case "Combined Stream":
                 break;
 
             case "Add User":
@@ -99,7 +86,8 @@ public class ProcessConnectionData {
                 break;
 
             case "Set Mapping":
-                // Change mapping config
+                String[] array = objectFile.getFileName().split("-");
+                Mapping.addElimentToMap(array[0], array[1]);
                 break;
 
             case "Fill DB":

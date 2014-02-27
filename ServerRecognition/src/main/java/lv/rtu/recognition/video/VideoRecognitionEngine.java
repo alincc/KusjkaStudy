@@ -26,8 +26,7 @@ public class VideoRecognitionEngine {
     private static FKEFaceDetector engine = new FKEFaceDetector();
     private static SimpleKNNRecogniser<LtpDtFeature, KEDetectedFace> recogniser = new SimpleKNNRecogniser<LtpDtFeature, KEDetectedFace>(
             new LtpDtFeature.Factory<KEDetectedFace>(new AffineAligner(), new TruncatedWeighting()),
-            new LtpDtFeatureComparator(),
-            4);
+            new LtpDtFeatureComparator(), 4);
 
 
     public static String recognise(BufferedImage bImageFromConvert) {
