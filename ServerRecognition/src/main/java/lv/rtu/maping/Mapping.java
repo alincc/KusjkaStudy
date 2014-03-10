@@ -13,15 +13,15 @@ public class Mapping {
         return map;
     }
 
-    public static void addElimentToMap(String source, String destination) {
+    public synchronized static void addElementToMap(String source, String destination) {
         map.put(source, destination);
     }
 
-    public static String getDestination(String source) {
+    public synchronized static String getDestination(String source) {
         return map.get(source);
     }
 
-    public static void mappingToFile() {
+    public synchronized static void mappingToFile() {
         File file = new File("./mapping/mapping");
         FileOutputStream f = null;
         ObjectOutputStream s = null;
@@ -42,7 +42,7 @@ public class Mapping {
         }
     }
 
-    public static void mppingFromFile() {
+    public synchronized static void mappingFromFile() {
         File file = new File("./mapping/mapping");
         FileInputStream f = null;
         ObjectInputStream s = null;

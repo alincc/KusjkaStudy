@@ -13,7 +13,7 @@ enum FileConstants {
 
     private String data;
 
-    public String getValue() {
+    public synchronized String getValue() {
         return data;
     }
 }

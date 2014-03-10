@@ -25,7 +25,7 @@ public class ConnectionHandler {
 
         DataBaseFiller.fillDB();
         RecognitionEngine.trainRecognizers();
-        Mapping.mppingFromFile();
+        Mapping.mappingFromFile();
 
         // The default port number.
 		int portNumber = 2222;

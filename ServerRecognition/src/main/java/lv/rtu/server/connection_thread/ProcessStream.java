@@ -27,7 +27,8 @@ public class ProcessStream {
                     e.printStackTrace();
                 }
                 VideoStreaming videoStream = new VideoStreaming(serverPort, clientPort);
-                videoStream.run();
+                Thread videoStreamThread = new Thread(videoStream);
+                videoStreamThread.start();
                 break;
 
             case "Audio Stream":
@@ -42,7 +43,8 @@ public class ProcessStream {
                     e.printStackTrace();
                 }
                 AudioStreaming audioStream = new AudioStreaming(serverPort, clientPort);
-                audioStream.run();
+                Thread audioStreamThread = new Thread(audioStream);
+                audioStreamThread.start();
                 break;
 
             case "Combined Stream":

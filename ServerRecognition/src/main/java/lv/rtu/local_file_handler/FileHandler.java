@@ -14,7 +14,7 @@ public class FileHandler {
 
 	static private File file;
 
-	public static void createFile(String filePath) throws IOException {
+	public synchronized static void createFile(String filePath) throws IOException {
 		Path path = Paths.get(filePath);
 		file = new File(filePath);
 		Files.createDirectories(path.getParent());
@@ -27,7 +27,7 @@ public class FileHandler {
 		}
 	}
 
-	public static void deleteFile(String filePath) {
+	public synchronized static void deleteFile(String filePath) {
 		try {
 			File file = new File(filePath);
 

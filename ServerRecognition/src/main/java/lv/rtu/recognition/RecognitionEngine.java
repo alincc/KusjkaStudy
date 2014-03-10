@@ -7,13 +7,13 @@ import java.awt.image.BufferedImage;
 
 public class RecognitionEngine {
 
-    public static void trainRecognizers(){
+    public synchronized static void trainRecognizers(){
         AudioRecognitionEngine.configure();
         AudioRecognitionEngine.trainFolder("./resources/data/audio/training");
         VideoRecognitionEngine.trainRecognizer("./resources/data/images/training");
     }
 
-    public static String recogniseImage(BufferedImage image){
+    public synchronized static String recogniseImage(BufferedImage image){
 
         String result = VideoRecognitionEngine.recognise(image);
         if(result != null){

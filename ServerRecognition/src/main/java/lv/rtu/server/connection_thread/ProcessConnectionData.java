@@ -87,7 +87,7 @@ public class ProcessConnectionData {
 
             case "Set Mapping":
                 String[] array = objectFile.getFileName().split("-");
-                Mapping.addElimentToMap(array[0], array[1]);
+                Mapping.addElementToMap(array[0], array[1]);
                 break;
 
             case "Fill DB":

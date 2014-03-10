@@ -16,15 +16,15 @@ public class AvailablePortFinder {
     private AvailablePortFinder() {
     }
 
-    public static Set getAvailablePorts() {
+    public synchronized static Set getAvailablePorts() {
         return getAvailablePorts(MIN_PORT_NUMBER, MAX_PORT_NUMBER);
     }
 
-    public static int getNextAvailable() {
+    public synchronized static int getNextAvailable() {
         return getNextAvailable(MIN_PORT_NUMBER);
     }
 
-    public static int getNextAvailable(int fromPort) {
+    public synchronized static int getNextAvailable(int fromPort) {
         if ((fromPort < MIN_PORT_NUMBER) || (fromPort > MAX_PORT_NUMBER)) {
             throw new IllegalArgumentException("Invalid start port: "
                     + fromPort);
@@ -40,7 +40,7 @@ public class AvailablePortFinder {
                 + "above " + fromPort);
     }
 
-    public static boolean available(int port) {
+    public synchronized static boolean available(int port) {
         if ((port < MIN_PORT_NUMBER) || (port > MAX_PORT_NUMBER)) {
             throw new IllegalArgumentException("Invalid start port: " + port);
         }
@@ -71,7 +71,7 @@ public class AvailablePortFinder {
         return false;
     }
 
-    public static Set getAvailablePorts(int fromPort, int toPort) {
+    public synchronized static Set getAvailablePorts(int fromPort, int toPort) {
         if (
                 (fromPort < MIN_PORT_NUMBER) || (toPort > MAX_PORT_NUMBER)
                         || (fromPort > toPort)) {

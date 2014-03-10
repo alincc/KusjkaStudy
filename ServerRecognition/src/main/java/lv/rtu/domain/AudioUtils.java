@@ -16,7 +16,7 @@ public class AudioUtils {
         return format;
     }
 
-    public static byte[] getSoundBytes(String filename) {
+    public synchronized static byte[] getSoundBytes(String filename) {
         AudioInputStream audioInputStream;
         try {
             audioInputStream = AudioSystem.getAudioInputStream(new BufferedInputStream(new FileInputStream(filename)));
@@ -33,7 +33,7 @@ public class AudioUtils {
         return null;
     }
 
-    public static void getAudioInfo(AudioInputStream audioInputStream)
+    public synchronized static void getAudioInfo(AudioInputStream audioInputStream)
     {
         AudioFormat audioFormat = audioInputStream.getFormat();
         float sample_rate = audioFormat.getSampleRate();
@@ -58,14 +58,14 @@ public class AudioUtils {
         int x[] = new int[n];
     }
 
-    public static AudioInputStream soundBytesToAudio(byte[] soundBytes){
+    public synchronized static AudioInputStream soundBytesToAudio(byte[] soundBytes){
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(soundBytes);
         long length = (long)(soundBytes.length / getAudioFormat().getFrameSize());
         AudioInputStream audioInputStreamTemp = new AudioInputStream(byteArrayInputStream, getAudioFormat(), length);
         return audioInputStreamTemp;
     }
 
-    public static void saveAudioStreamToFile(AudioInputStream stream, String filename){
+    public synchronized static void saveAudioStreamToFile(AudioInputStream stream, String filename){
         File file = new File(filename);
         try {
             AudioSystem.write(stream, AudioFileFormat.Type.WAVE, file);

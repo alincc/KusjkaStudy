@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 
 public class ImageUtils {
 
-    public static BufferedImage scaleImage(int WIDTH, int HEIGHT, String filename) {
+    public synchronized static BufferedImage scaleImage(int WIDTH, int HEIGHT, String filename) {
         BufferedImage bi = null;
         try {
             ImageIcon ii = new ImageIcon(filename);

@@ -58,7 +58,7 @@ public class AudioRecognitionEngine {
 
     protected static OptionProcessor soGetOpt = new OptionProcessor();
 
-    public static void configure() {
+    public synchronized static void configure() {
         try {
             validateVersions();
             setDefaultConfig();
@@ -67,7 +67,7 @@ public class AudioRecognitionEngine {
         }
     }
 
-    public static void trainFolder(String fileName) {
+    public synchronized static void trainFolder(String fileName) {
         try {
 
             File[] aoFiles = new File(fileName).listFiles();
@@ -114,7 +114,7 @@ public class AudioRecognitionEngine {
 
     }
 
-    public static String[] ident(String pstrFilename)
+    public synchronized static String[] ident(String pstrFilename)
             throws MARFException {
         /*
          * If no expected speaker present on the command line,
@@ -165,7 +165,7 @@ public class AudioRecognitionEngine {
         return results;
     }
 
-    public static void folderIdent(String filePath) {
+    public synchronized static void folderIdent(String filePath) {
         // Store config and error/successes for that config
         String strConfig = MARF.getConfig();
 
@@ -192,7 +192,7 @@ public class AudioRecognitionEngine {
      * @throws MARFException in case of any error while processing is in MARF
      * @since 0.3.0.5
      */
-    public static void train(String pstrFilename) throws MARFException {
+    public synchronized static void train(String pstrFilename) throws MARFException {
         MARF.setSampleFile(pstrFilename);
         String[] files = pstrFilename.toString().split(Pattern.quote(File.separator));
         pstrFilename = files[files.length - 1];
@@ -211,7 +211,7 @@ public class AudioRecognitionEngine {
      *
      * @return version String
      */
-    public static String getVersion() {
+    public synchronized static String getVersion() {
         return MAJOR_VERSION + "." + MINOR_VERSION + "." + REVISION;
     }
 
@@ -220,7 +220,7 @@ public class AudioRecognitionEngine {
      *
      * @return integer version
      */
-    public static int getIntVersion() {
+    public synchronized static int getIntVersion() {
         return MAJOR_VERSION * 100 + MINOR_VERSION * 10 + REVISION;
     }
 
@@ -228,7 +228,7 @@ public class AudioRecognitionEngine {
      * Makes sure the applications isn't run against older MARF version.
      * Exits with 1 if the MARF version is too old.
      */
-    public static void validateVersions() {
+    public synchronized static void validateVersions() {
         if (MARF.getDoubleVersion() < (0 * 100 + 3 * 10 + 0 + .5)) {
             System.err.println
                     (
@@ -248,7 +248,7 @@ public class AudioRecognitionEngine {
      *                 numerical set up inside.
      * @return the current configuration setup
      */
-    public static String getConfigString(String[] pstrArgv) {
+    public synchronized static String getConfigString(String[] pstrArgv) {
         // Store config and error/successes for that config
         String strConfig = "";
 
@@ -274,7 +274,7 @@ public class AudioRecognitionEngine {
      * @throws MARFException
      * @since 0.3.0.5
      */
-    public static void setDefaultConfig()
+    public synchronized static void setDefaultConfig()
             throws MARFException {
         /*
 		 * Default MARF setup
@@ -294,7 +294,7 @@ public class AudioRecognitionEngine {
      * @throws MARFException if some options are out of range
      * @since 0.3.0.5
      */
-    public static void setCustomConfig()
+    public synchronized static void setCustomConfig()
             throws MARFException {
         ModuleParams oParams = new ModuleParams();
 

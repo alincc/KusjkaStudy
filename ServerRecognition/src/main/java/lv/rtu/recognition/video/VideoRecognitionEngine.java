@@ -29,7 +29,7 @@ public class VideoRecognitionEngine {
             new LtpDtFeatureComparator(), 4);
 
 
-    public static String recognise(BufferedImage bImageFromConvert) {
+    public synchronized static String recognise(BufferedImage bImageFromConvert) {
         String result = null;
         List<KEDetectedFace> faces = engine.detectFaces(ImageUtilities.createFImage(bImageFromConvert));
         if (faces.size() == 1) {
@@ -42,7 +42,7 @@ public class VideoRecognitionEngine {
         return result;
     }
 
-    public static void trainRecognizer(String path) {
+    public synchronized static void trainRecognizer(String path) {
         File folder = new File(path);
         File[] listOfFiles = folder.listFiles();
         String fileName;
@@ -70,7 +70,7 @@ public class VideoRecognitionEngine {
         recogniser.train();
     }
 
-    private static BufferedImage convertToGray(BufferedImage image) {
+    private synchronized static BufferedImage convertToGray(BufferedImage image) {
         ColorConvertOp op = new ColorConvertOp(ColorSpace.getInstance(ColorSpace.CS_GRAY), null);
         op.filter(image, image);
         return image;
