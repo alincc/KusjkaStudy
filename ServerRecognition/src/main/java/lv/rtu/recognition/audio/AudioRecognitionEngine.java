@@ -18,47 +18,11 @@ import java.util.regex.Pattern;
 
 public class AudioRecognitionEngine {
 
-    public static final int MAJOR_VERSION = 0;
+    private UserTableImplementationDAO table = new UserTableImplementationDAO();
 
-    public static final int MINOR_VERSION = 3;
+    protected OptionProcessor soGetOpt = new OptionProcessor();
 
-    public static final int REVISION = 0;
-
-    public static final int OPT_TRAIN = 0;
-
-    public static final int OPT_IDENT = 1;
-
-    public static final int OPT_STATS = 2;
-
-    public static final int OPT_RESET = 3;
-
-    public static final int OPT_VERSION = 4;
-
-    public static final int OPT_HELP_LONG = 5;
-
-    public static final int OPT_HELP_SHORT = 6;
-
-    public static final int OPT_DEBUG = 7;
-
-    public static final int OPT_GRAPH = 8;
-
-    public static final int OPT_SPECTROGRAM = 9;
-
-    public static final int OPT_EXPECTED_SPEAKER_ID = 10;
-
-    public static final int OPT_BATCH_IDENT = 11;
-
-    public static final int OPT_SINGLE_TRAIN = 12;
-
-    public static final int OPT_DIR_OR_FILE = 13;
-
-    public static final int OPT_BEST_SCORE = 14;
-
-    private static UserTableImplementationDAO table = new UserTableImplementationDAO();
-
-    protected static OptionProcessor soGetOpt = new OptionProcessor();
-
-    public synchronized static void configure() {
+    public synchronized void configure() {
         try {
             validateVersions();
             setDefaultConfig();
@@ -67,7 +31,7 @@ public class AudioRecognitionEngine {
         }
     }
 
-    public synchronized static void trainFolder(String fileName) {
+    public synchronized void trainFolder(String fileName) {
         try {
 
             File[] aoFiles = new File(fileName).listFiles();
@@ -114,7 +78,7 @@ public class AudioRecognitionEngine {
 
     }
 
-    public synchronized static String[] ident(String pstrFilename)
+    public synchronized String[] ident(String pstrFilename)
             throws MARFException {
         /*
          * If no expected speaker present on the command line,
@@ -152,6 +116,7 @@ public class AudioRecognitionEngine {
 		/*
          * Only collect stats if we have expected speaker
 		 */
+
         if (piExpectedID > 0) {
             System.out.println("Expected Speaker's ID: " + piExpectedID);
             System.out.println("     Expected Speaker: " + expected);
@@ -165,7 +130,7 @@ public class AudioRecognitionEngine {
         return results;
     }
 
-    public synchronized static void folderIdent(String filePath) {
+    public synchronized void folderIdent(String filePath) {
         // Store config and error/successes for that config
         String strConfig = MARF.getConfig();
 
@@ -192,7 +157,7 @@ public class AudioRecognitionEngine {
      * @throws MARFException in case of any error while processing is in MARF
      * @since 0.3.0.5
      */
-    public synchronized static void train(String pstrFilename) throws MARFException {
+    public synchronized void train(String pstrFilename) throws MARFException {
         MARF.setSampleFile(pstrFilename);
         String[] files = pstrFilename.toString().split(Pattern.quote(File.separator));
         pstrFilename = files[files.length - 1];
@@ -207,28 +172,10 @@ public class AudioRecognitionEngine {
     }
 
     /**
-     * Retrieves String representation of the application's version.
-     *
-     * @return version String
-     */
-    public synchronized static String getVersion() {
-        return MAJOR_VERSION + "." + MINOR_VERSION + "." + REVISION;
-    }
-
-    /**
-     * Retrieves integer representation of the application's version.
-     *
-     * @return integer version
-     */
-    public synchronized static int getIntVersion() {
-        return MAJOR_VERSION * 100 + MINOR_VERSION * 10 + REVISION;
-    }
-
-    /**
      * Makes sure the applications isn't run against older MARF version.
      * Exits with 1 if the MARF version is too old.
      */
-    public synchronized static void validateVersions() {
+    public synchronized void validateVersions() {
         if (MARF.getDoubleVersion() < (0 * 100 + 3 * 10 + 0 + .5)) {
             System.err.println
                     (
@@ -248,7 +195,7 @@ public class AudioRecognitionEngine {
      *                 numerical set up inside.
      * @return the current configuration setup
      */
-    public synchronized static String getConfigString(String[] pstrArgv) {
+    public synchronized String getConfigString(String[] pstrArgv) {
         // Store config and error/successes for that config
         String strConfig = "";
 
@@ -274,7 +221,7 @@ public class AudioRecognitionEngine {
      * @throws MARFException
      * @since 0.3.0.5
      */
-    public synchronized static void setDefaultConfig()
+    public synchronized void setDefaultConfig()
             throws MARFException {
         /*
 		 * Default MARF setup
@@ -294,7 +241,7 @@ public class AudioRecognitionEngine {
      * @throws MARFException if some options are out of range
      * @since 0.3.0.5
      */
-    public synchronized static void setCustomConfig()
+    public synchronized void setCustomConfig()
             throws MARFException {
         ModuleParams oParams = new ModuleParams();
 

@@ -1,6 +1,8 @@
 package lv.rtu.server.connection;
 
 import lv.rtu.db.DataBaseFiller;
+import lv.rtu.external_camera.IPCameraThreadController;
+import lv.rtu.maping.IPCamMapping;
 import lv.rtu.maping.Mapping;
 import lv.rtu.recognition.RecognitionEngine;
 import lv.rtu.server.connection_thread.ConnectionThread;
@@ -26,6 +28,10 @@ public class ConnectionHandler {
         DataBaseFiller.fillDB();
         RecognitionEngine.trainRecognizers();
         Mapping.mappingFromFile();
+        IPCamMapping.mappingFromFile();
+
+        IPCameraThreadController treadController = new IPCameraThreadController();
+        treadController.runAllIPCameras();
 
         // The default port number.
 		int portNumber = 2222;

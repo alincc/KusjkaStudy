@@ -6,8 +6,6 @@ import lv.rtu.domain.AudioUtils;
 import lv.rtu.domain.ObjectFile;
 import lv.rtu.maping.Mapping;
 import lv.rtu.recognition.RecognitionEngine;
-import lv.rtu.recognition.audio.AudioRecognitionEngine;
-import lv.rtu.recognition.video.VideoRecognitionEngine;
 
 import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
@@ -49,7 +47,7 @@ public class ProcessConnectionData {
                         if (objectFile.getFileName().contains("image")) {
                             ByteArrayInputStream byteArrayStream = new ByteArrayInputStream(objectFile.getFileBytes());
                             BufferedImage image = ImageIO.read(byteArrayStream);
-                            VideoRecognitionEngine.recognise(image);
+                            RecognitionEngine.recogniseImage(image);
                             System.out.println(objectFile.toString());
                             byteArrayStream.close();
                         }
@@ -62,7 +60,7 @@ public class ProcessConnectionData {
                             String fileName = "./resources/tmp/" + time + ".wav";
                             AudioUtils.saveAudioStreamToFile(stream, fileName);
                             stream.close();
-                            AudioRecognitionEngine.ident(fileName);
+                            RecognitionEngine.recogniseAudio(fileName);
                             System.out.println(objectFile.toString());
                         }
 

@@ -2,8 +2,7 @@ package lv.rtu.streaming.audio;
 
 import lv.rtu.domain.AudioUtils;
 import lv.rtu.maping.Mapping;
-import lv.rtu.recognition.audio.AudioRecognitionEngine;
-import marf.util.MARFException;
+import lv.rtu.recognition.RecognitionEngine;
 import org.xiph.speex.SpeexDecoder;
 
 import javax.sound.sampled.AudioInputStream;
@@ -50,32 +49,39 @@ public class AudioStreaming implements Runnable {
             int arrayLength;
             do {
                 dsocket.receive(packet);
+
                 arrayLength = packet.getLength();
                 speexDecoder.processData(packet.getData(), 0, packet.getData().length);
+
                 byte data[] = new byte[speexDecoder.getProcessedDataByteSize()];
                 speexDecoder.getProcessedData(data, 0);
+
                 System.out.println("Data length: " + data.length);
+
                 storeBuffer.put(data);
-                if(storeBuffer.position() > 114000){
+                if (storeBuffer.position() > 114000) {
                     String host = Mapping.getDestination(packet.getAddress().toString().substring(1));
                     System.out.println("Client IP : " + packet.getAddress().toString());
+
                     Date date = new java.util.Date();
                     String time = new Timestamp(date.getTime()).toString();
                     time = time.replaceAll("[^A-Za-z0-9 ]+", "_");
+
                     AudioInputStream stream = AudioUtils.soundBytesToAudio(storeBuffer.array());
                     storeBuffer.clear();
+
                     String fileName = "./resources/tmp/" + time + ".wav";
+
                     AudioUtils.saveAudioStreamToFile(stream, fileName);
                     stream.close();
-                    String[] result = AudioRecognitionEngine.ident(fileName);
+
+                    String[] result = RecognitionEngine.recogniseAudio(fileName);
+
                     ssocket.send(new DatagramPacket(result[0].getBytes(), result[0].getBytes().length,
-                            InetAddress.getByName(host),portClient));
+                            InetAddress.getByName(host), portClient));
                 }
             } while (arrayLength > 0);
         } catch (IOException e) {
-            System.err.println("I/O problems: " + e);
-            System.exit(-3);
-        } catch (MARFException e) {
             e.printStackTrace();
         }
     }

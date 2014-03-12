@@ -22,14 +22,14 @@ import java.util.List;
 
 public class VideoRecognitionEngine {
 
-    private static UserTableImplementationDAO table = new UserTableImplementationDAO();
-    private static FKEFaceDetector engine = new FKEFaceDetector();
-    private static SimpleKNNRecogniser<LtpDtFeature, KEDetectedFace> recogniser = new SimpleKNNRecogniser<LtpDtFeature, KEDetectedFace>(
+    private UserTableImplementationDAO table = new UserTableImplementationDAO();
+    private FKEFaceDetector engine = new FKEFaceDetector();
+    private SimpleKNNRecogniser<LtpDtFeature, KEDetectedFace> recogniser = new SimpleKNNRecogniser<LtpDtFeature, KEDetectedFace>(
             new LtpDtFeature.Factory<KEDetectedFace>(new AffineAligner(), new TruncatedWeighting()),
             new LtpDtFeatureComparator(), 4);
 
 
-    public synchronized static String recognise(BufferedImage bImageFromConvert) {
+    public synchronized String recognise(BufferedImage bImageFromConvert) {
         String result = null;
         List<KEDetectedFace> faces = engine.detectFaces(ImageUtilities.createFImage(bImageFromConvert));
         if (faces.size() == 1) {
@@ -42,7 +42,7 @@ public class VideoRecognitionEngine {
         return result;
     }
 
-    public synchronized static void trainRecognizer(String path) {
+    public synchronized void trainRecognizer(String path) {
         File folder = new File(path);
         File[] listOfFiles = folder.listFiles();
         String fileName;
@@ -70,7 +70,7 @@ public class VideoRecognitionEngine {
         recogniser.train();
     }
 
-    private synchronized static BufferedImage convertToGray(BufferedImage image) {
+    private synchronized BufferedImage convertToGray(BufferedImage image) {
         ColorConvertOp op = new ColorConvertOp(ColorSpace.getInstance(ColorSpace.CS_GRAY), null);
         op.filter(image, image);
         return image;
