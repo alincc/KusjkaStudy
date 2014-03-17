@@ -1,7 +1,7 @@
 package lv.rtu.server.connection_thread;
 
 import lv.rtu.domain.ObjectFile;
-import lv.rtu.server.file_handler.ObjectTransfer;
+import lv.rtu.server.object_handler.ObjectTransfer;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -10,9 +10,7 @@ import java.net.Socket;
 
 public class ConnectionThread extends Thread {
 
-    private Socket clientSocket = null;
-    private ObjectInputStream inStream = null;
-    private ObjectOutputStream outStream = null;
+    private Socket clientSocket;
 
     public ConnectionThread(Socket clientSocket) {
         this.clientSocket = clientSocket;
@@ -20,6 +18,8 @@ public class ConnectionThread extends Thread {
 
     public void run() {
 
+        ObjectInputStream inStream;
+        ObjectOutputStream outStream;
 
         System.out.println("New Connection Established from IP : " + clientSocket.getInetAddress());
 

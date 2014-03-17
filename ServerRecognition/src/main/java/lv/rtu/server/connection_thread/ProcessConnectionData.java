@@ -3,7 +3,10 @@ package lv.rtu.server.connection_thread;
 import lv.rtu.db.DataBaseFiller;
 import lv.rtu.db.UserTableImplementationDAO;
 import lv.rtu.domain.AudioUtils;
+import lv.rtu.domain.NameGenerator;
 import lv.rtu.domain.ObjectFile;
+import lv.rtu.external_camera.IPCamera;
+import lv.rtu.maping.IPCamMapping;
 import lv.rtu.maping.Mapping;
 import lv.rtu.recognition.RecognitionEngine;
 
@@ -12,8 +15,6 @@ import javax.sound.sampled.AudioInputStream;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.sql.Timestamp;
-import java.util.Date;
 
 public class ProcessConnectionData {
 
@@ -24,27 +25,26 @@ public class ProcessConnectionData {
         switch (objectFile.getMessage()) {
             case "Transfer File":
                 try {
+                    if (objectFile.getData().contains(".")) {
 
-                    if (objectFile.getFileName().contains(".")) {
-
-                        if (objectFile.getFileName().contains("jpg")) {
+                        if (objectFile.getData().contains("jpg")) {
                             ByteArrayInputStream byteArrayStream = new ByteArrayInputStream(objectFile.getFileBytes());
                             BufferedImage image = ImageIO.read(byteArrayStream);
-                            String fileName = "./resources" + objectFile.getFileName();
+                            String fileName = "./resources" + objectFile.getData();
                             ImageIO.write(image, "jpg", new File(fileName));
                             byteArrayStream.close();
                         }
 
-                        if (objectFile.getFileName().contains("wav")) {
+                        if (objectFile.getData().contains("wav")) {
                             AudioInputStream stream = AudioUtils.soundBytesToAudio(objectFile.getFileBytes());
-                            String fileName = "./resources" + objectFile.getFileName();
+                            String fileName = "./resources" + objectFile.getData();
                             AudioUtils.saveAudioStreamToFile(stream, fileName);
                             stream.close();
                         }
 
                     } else {
 
-                        if (objectFile.getFileName().contains("image")) {
+                        if (objectFile.getData().contains("image")) {
                             ByteArrayInputStream byteArrayStream = new ByteArrayInputStream(objectFile.getFileBytes());
                             BufferedImage image = ImageIO.read(byteArrayStream);
                             RecognitionEngine.recogniseImage(image);
@@ -52,12 +52,9 @@ public class ProcessConnectionData {
                             byteArrayStream.close();
                         }
 
-                        if (objectFile.getFileName().contains("audio")) {
-                            Date date = new java.util.Date();
-                            String time = new Timestamp(date.getTime()).toString();
-                            time = time.replaceAll("[^A-Za-z0-9 ]+", "_");
+                        if (objectFile.getData().contains("audio")) {
                             AudioInputStream stream = AudioUtils.soundBytesToAudio(objectFile.getFileBytes());
-                            String fileName = "./resources/tmp/" + time + ".wav";
+                            String fileName = "./resources/tmp/" + NameGenerator.getName() + ".wav";
                             AudioUtils.saveAudioStreamToFile(stream, fileName);
                             stream.close();
                             RecognitionEngine.recogniseAudio(fileName);
@@ -84,12 +81,18 @@ public class ProcessConnectionData {
                 break;
 
             case "Set Mapping":
-                String[] array = objectFile.getFileName().split("-");
+                String[] array = objectFile.getData().split("-");
                 Mapping.addElementToMap(array[0], array[1]);
                 break;
 
+            case "Set IP Camera Mapping":
+                String[] configData = objectFile.getData().split("-");
+                IPCamera camera = new IPCamera(configData[0], configData[1], configData[2]);
+                IPCamMapping.addElementToMap(camera, configData[3]);
+                break;
+
             case "Fill DB":
-                System.out.println("Fil DB");
+                System.out.println("Fill DB");
                 DataBaseFiller.fillDB();
                 break;
 

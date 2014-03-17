@@ -13,7 +13,7 @@ public class FileProcessing implements Runnable {
     @Override
     public void run() {
 
-        if (objectFile.getFileName() != null){
+        if (objectFile.getData() != null){
 
             //RecognitionEngine.recognize(objectFile)
 

@@ -1,18 +1,10 @@
-//package ishop.jdbc.database_tools;
 package lv.rtu.db;
- import lv.rtu.db.DBConnector;
 
- import java.io.FileInputStream;
- import java.io.IOException;
- import java.sql.*;
- import java.util.ArrayList;
- import java.util.List;
- import java.util.Properties;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseTools extends DBConnector {
-
-    private PreparedStatement preparedStatement = null;
-
 
     private List<String> getDatabaseMetaData(Connection connection) {
         List<String> tableList = new ArrayList<String>();
@@ -28,8 +20,18 @@ public class DatabaseTools extends DBConnector {
         }
         return tableList;
     }
-   
+
+    public boolean checkIsConnectionPossible() {
+        try {
+            checkConnection();
+        } catch (RuntimeException e) {
+            return false;
+        }
+        return true;
+    }
+
     public void clear(String dbName) {
+        PreparedStatement preparedStatement;
         Connection connection = connection();
         try {
             connection.setAutoCommit(false);
@@ -49,7 +51,7 @@ public class DatabaseTools extends DBConnector {
             } catch (SQLException s) {
                 System.out.println("Deleted All Rows In  Table Error. ");
                 s.printStackTrace();
-            } finally{
+            } finally {
                 connection.close();
             }
         } catch (Exception e) {

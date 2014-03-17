@@ -1,6 +1,7 @@
 package lv.rtu.streaming.audio;
 
 import lv.rtu.domain.AudioUtils;
+import lv.rtu.domain.NameGenerator;
 import lv.rtu.maping.Mapping;
 import lv.rtu.recognition.RecognitionEngine;
 import org.xiph.speex.SpeexDecoder;
@@ -10,10 +11,7 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.net.SocketException;
 import java.nio.ByteBuffer;
-import java.sql.Timestamp;
-import java.util.Date;
 
 public class AudioStreaming implements Runnable {
 
@@ -27,24 +25,18 @@ public class AudioStreaming implements Runnable {
 
     @Override
     public void run() {
-        DatagramSocket dsocket = null;
-        DatagramSocket ssocket = null;
         try {
-            dsocket = new DatagramSocket(portServer);
-            ssocket = new DatagramSocket();
-        } catch (SocketException e1) {
-            e1.printStackTrace();
-        }
 
-        byte[] buffer = new byte[1024];
+            DatagramSocket dsocket = new DatagramSocket(portServer);
+            DatagramSocket ssocket = new DatagramSocket();
 
-        DatagramPacket packet = new DatagramPacket(buffer,
-                buffer.length);
+            byte[] buffer = new byte[1024];
 
-        SpeexDecoder speexDecoder = new SpeexDecoder();
-        speexDecoder.init(0, 8000, 1, false);
+            DatagramPacket packet = new DatagramPacket(buffer,buffer.length);
 
-        try {
+            SpeexDecoder speexDecoder = new SpeexDecoder();
+            speexDecoder.init(0, 8000, 1, false);
+
             ByteBuffer storeBuffer = ByteBuffer.allocate(115000);
             int arrayLength;
             do {
@@ -63,14 +55,10 @@ public class AudioStreaming implements Runnable {
                     String host = Mapping.getDestination(packet.getAddress().toString().substring(1));
                     System.out.println("Client IP : " + packet.getAddress().toString());
 
-                    Date date = new java.util.Date();
-                    String time = new Timestamp(date.getTime()).toString();
-                    time = time.replaceAll("[^A-Za-z0-9 ]+", "_");
-
                     AudioInputStream stream = AudioUtils.soundBytesToAudio(storeBuffer.array());
                     storeBuffer.clear();
 
-                    String fileName = "./resources/tmp/" + time + ".wav";
+                    String fileName = "./resources/tmp/" + NameGenerator.getName() + ".wav";
 
                     AudioUtils.saveAudioStreamToFile(stream, fileName);
                     stream.close();

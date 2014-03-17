@@ -1,6 +1,7 @@
 package lv.rtu.server.connection;
 
 import lv.rtu.db.DataBaseFiller;
+import lv.rtu.db.DatabaseTools;
 import lv.rtu.external_camera.IPCameraThreadController;
 import lv.rtu.maping.IPCamMapping;
 import lv.rtu.maping.Mapping;
@@ -14,22 +15,39 @@ import java.net.Socket;
 
 public class ConnectionHandler {
 
-	// The server socket.
-	private static ServerSocket serverSocket = null;
-	// The client socket.
-	private static Socket clientSocket = null;
+    // The server socket.
+    private static ServerSocket serverSocket = null;
+    // The client socket.
+    private static Socket clientSocket = null;
 
-	// This chat server can accept up to maxClientsCount clients' connections.
+
+	//This recognition server can accept up to maxClientsCount clients' connections.
 	private static final int maxClientsCount = 10;
 	private static final ConnectionThread[] threads = new ConnectionThread[maxClientsCount];
 
 	public static void main(String args[]) {
 
+        //Checking is database accessible or not;
+        DatabaseTools tools = new DatabaseTools();
+        if(!tools.checkIsConnectionPossible()){
+            System.out.println("Database not found. Server requires Database data. Please check is database running" +
+                    " , or database profile is correct.");
+            return;
+        }
+
+        // Filling database with testing data;
         DataBaseFiller.fillDB();
+
+        // Training recognizer audio and image recognizer;
         RecognitionEngine.trainRecognizers();
+
+        // Loading server-client mapping;
         Mapping.mappingFromFile();
+
+        // Loading ip camera mapping;
         IPCamMapping.mappingFromFile();
 
+        // Starting new threads for IP cameras;
         IPCameraThreadController treadController = new IPCameraThreadController();
         treadController.runAllIPCameras();
 
@@ -45,8 +63,7 @@ public class ConnectionHandler {
 
 		/*
 		 * Open a server socket on the portNumber (default 2222). Note that we
-		 * can not choose a port less than 1023 if we are not privileged users
-		 * (root).
+		 * can not choose a port less than 1023 if we are not privileged users (root);
 		 */
 		try {
 			serverSocket = new ServerSocket(portNumber);
@@ -55,8 +72,7 @@ public class ConnectionHandler {
 		}
 
 		/*
-		 * Create a client socket for each connection and pass it to a new
-		 * client thread.
+		 * Create a client socket for each connection and pass it to a new client thread;
 		 */
 		while (true) {
 			try {
@@ -77,6 +93,7 @@ public class ConnectionHandler {
 					clientSocket.close();
 				}
 			} catch (IOException e) {
+                e.printStackTrace();
 				System.out.println(e);
 			}
 		}

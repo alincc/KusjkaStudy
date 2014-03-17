@@ -25,38 +25,38 @@ public class VideoStreaming implements Runnable {
     public void run() {
         try {
 
-            // Create a socket to listen on the port.
             DatagramSocket dsocket = new DatagramSocket(portServer);
             DatagramSocket ssocket = new DatagramSocket();
-            // Create a buffer to read datagrams into. If a
-            // packet is larger than this buffer, the
-            // excess will simply be discarded!
+
             byte[] buffer = new byte[10048];
 
-            // Create a packet to receive data into the buffer
             DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
 
-            // Now loop forever, waiting to receive packets and printing them.
             do {
-                // Wait to receive a datagram
                 dsocket.receive(packet);
                 if (packet.getLength() > 0) {
+
                     InputStream in = new ByteArrayInputStream(packet.getData());
+
                     BufferedImage image = ImageIO.read(in);
+
                     String host = Mapping.getDestination(packet.getAddress().toString().substring(1));
+
                     System.out.println("Client IP : " + packet.getAddress().toString());
+
                     String result = RecognitionEngine.recogniseImage(image);
+
                     System.out.println("Result : " + result);
+
                     System.out.println("Sending data to port : " + portClient + " :: Client host :" + host);
-                    ssocket.send(new DatagramPacket(result.getBytes(), result.getBytes().length, InetAddress.getByName(host),
-                            portClient));
+
+                    ssocket.send(new DatagramPacket(result.getBytes(), result.getBytes().length, InetAddress.getByName(host), portClient));
                 }
 
             } while (packet.getLength() > 0);
-        System.out.println("User has left stream ");
+            System.out.println("User has left stream ");
         } catch (Exception e) {
             e.printStackTrace();
-            System.err.println(e);
         }
     }
 

@@ -6,7 +6,7 @@ import java.util.Arrays;
 public class ObjectFile implements Serializable {
 
     private String message;
-    private String fileName;
+    private String data;
     private byte[] fileBytes;
     private User user;
 
@@ -14,9 +14,9 @@ public class ObjectFile implements Serializable {
         this.message = message;
     }
 
-    public ObjectFile(String message, String fileName, byte[] fileBytes, User user) {
+    public ObjectFile(String message, String data, byte[] fileBytes, User user) {
         this.message = message;
-        this.fileName = fileName;
+        this.data = data;
         this.fileBytes = fileBytes;
         this.user = user;
     }
@@ -29,12 +29,12 @@ public class ObjectFile implements Serializable {
         this.message = message;
     }
 
-    public String getFileName() {
-        return fileName;
+    public String getData() {
+        return data;
     }
 
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
+    public void setData(String data) {
+        this.data = data;
     }
 
     public byte[] getFileBytes() {
@@ -67,8 +67,8 @@ public class ObjectFile implements Serializable {
         if (message != null ? !message.equals(objectFile.getMessage())
                 : objectFile.getMessage() != null)
             return false;
-        if (fileName != null ? !fileName.equals(objectFile.getFileName())
-                : objectFile.getFileName() != null)
+        if (data != null ? !data.equals(objectFile.getData())
+                : objectFile.getData() != null)
             return false;
         if (fileBytes != null ? !Arrays.equals(fileBytes,
                 objectFile.getFileBytes()) : objectFile.getFileBytes() != null)
@@ -79,7 +79,7 @@ public class ObjectFile implements Serializable {
     @Override
     public int hashCode() {
         int result = message != null ? message.hashCode() : 0;
-        result = 31 * result + (fileName != null ? fileName.hashCode() : 0);
+        result = 31 * result + (data != null ? data.hashCode() : 0);
         result = 31 * result + (fileBytes != null ? fileBytes.hashCode() : 0);
         result = 31 * result + (user != null ? user.hashCode() : 0);
         return result;
@@ -89,11 +89,11 @@ public class ObjectFile implements Serializable {
     public String toString() {
 
         if(user != null)
-        return "ObjectFile{ Message= " + message + '\'' + ", fileName='"
-                + fileName + '\'' + ", fileBytesLengths='" + fileBytes + '\''
+        return "ObjectFile{ Message= " + message + '\'' + ", Data='"
+                + data + '\'' + ", fileBytesLengths='" + fileBytes + '\''
                 + "User : " + user.getId() + '}';
         else
-            return "ObjectFile{ Message= " + message + '\'' + ", fileName='"
-                    + fileName + '\'' + ", fileBytesLengths='" + fileBytes + '}';
+            return "ObjectFile{ Message= " + message + '\'' + ", Data='"
+                    + data + '\'' + ", fileBytesLengths='" + fileBytes + '}';
     }
 }

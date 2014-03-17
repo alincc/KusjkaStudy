@@ -16,7 +16,7 @@ public class ProcessStream {
     public void processStream(ObjectFile objectFile ,ObjectOutputStream out){
         switch(objectFile.getMessage()){
             case "Video Stream":
-                clientPort = Integer.valueOf(objectFile.getFileName());
+                clientPort = Integer.valueOf(objectFile.getData());
                 serverPort = AvailablePortFinder.getNextAvailable();
                 System.out.println("Generated port : " + serverPort);
                 objectFile.setMessage(String.valueOf(serverPort));
@@ -32,7 +32,7 @@ public class ProcessStream {
                 break;
 
             case "Audio Stream":
-                clientPort = Integer.valueOf(objectFile.getFileName());
+                clientPort = Integer.valueOf(objectFile.getData());
                 serverPort = AvailablePortFinder.getNextAvailable();
                 System.out.println("Generated port : " + serverPort);
                 objectFile.setMessage(String.valueOf(serverPort));
