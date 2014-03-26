@@ -31,6 +31,7 @@ public class VideoRecognitionEngine {
 
     public synchronized String recognise(BufferedImage bImageFromConvert) {
         String result = null;
+        bImageFromConvert = convertToGray(bImageFromConvert);
         List<KEDetectedFace> faces = engine.detectFaces(ImageUtilities.createFImage(bImageFromConvert));
         if (faces.size() == 1) {
             faces.get(0);
